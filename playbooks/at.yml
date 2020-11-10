@@ -1,0 +1,14 @@
+---
+- hosts: centosa
+  become: yes
+  tasks:
+    - name: Install at
+      yum:
+        name: at
+        state: latest
+    - name: copy a file with at
+      at:
+        command: cp /var/log/httpd/error_log /tmp
+        count: 2
+        units: hours
+        state: present

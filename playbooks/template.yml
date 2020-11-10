@@ -1,0 +1,8 @@
+---
+- hosts: centosa
+  gather_facts: yes
+  tasks:
+    - name: Push out info template
+      template:
+        src: /home/ansible/ansible/templates/info.j2
+        dest: /tmp/info.txt

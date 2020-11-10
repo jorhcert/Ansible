@@ -1,0 +1,20 @@
+---
+- name: Conditional Playbook
+  hosts: centos
+  become: yes
+
+  tasks:
+    - name: Install backup package
+      yum:
+        name: rsync
+        state: present
+      ignore_errors: true
+    - name: Check for Archive File
+      command: ls /root/archive.tar
+      register: check_result
+      ignore_errors: true
+    - name: Create Archive File
+      file:
+        path: /root/archive.tar
+        state: touch
+      when: check_result is failed

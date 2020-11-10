@@ -1,0 +1,81 @@
+---
+- name: Install backup
+  hosts: centos
+  become: yes
+  
+  tasks:
+    - name: yum
+      yum:
+        name: rsync
+        state: present
+      ignore_errors: yes
+
+- name: Install httpd
+  hosts: ubuntu
+  become: yes
+
+  tasks:
+    - name: Apache install
+      apt:
+        name: apache2
+        state: present
+
+    - name: Service management
+      service:
+       name: apache2
+       state: started
+       enabled: yes
+
+- name: DB server mgmt
+  hosts: centosa
+  become: yes
+
+  tasks:
+    - name: Add user
+      user:
+        name: dbauser1
+        state: present
+
+    - name: Copy file
+      copy:
+        src: /home/ansible/ansible/files/dbafile
+        dest: /home/dbauser1/dbafile
+        owner: dbauser1
+        group: dbauser1
+        mode: 0600
+
+- name: Set up index.html on ubuntu
+  hosts: ubuntu
+  become: yes
+
+  tasks:
+    - name: create and populate index.html
+      lineinfile:
+        path: /var/www/html/index.html
+        line: Waiting for content
+        create: yes
+        owner: www-data
+        group: www-data
+        mode: 0644
+
+- name: Enable devs to populate content
+  hosts: centosa:centosb
+  become: yes
+
+  tasks:
+    - name: Install git
+      yum:
+        name: git
+        state: present
+
+- name: RHEL specific conf
+  hosts: centos
+  become: yes
+
+  tasks:
+    - name: Populate file with IP addr
+      lineinfile:
+        path: /home/ansible/ansible/files/addr
+        line: "{{ ansible_facts['all_ipv4_addresses'] }}"
+        create: yes
+      when: ansible_facts['os_family'] == 'RedHat'

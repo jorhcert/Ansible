@@ -1,0 +1,10 @@
+---
+- hosts: centosa
+  tasks:
+    - name: create a file
+      file:
+        path: /tmp/testFile2
+        state: touch
+      register: var
+    - name: display debug msg
+      debug: msg="Regsiter output is {{ var }}"

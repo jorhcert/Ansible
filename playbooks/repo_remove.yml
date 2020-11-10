@@ -1,0 +1,9 @@
+---
+- hosts: centosa
+  become: yes
+  tasks:
+    - name: Remove EPEL repo
+      yum_repository:
+        name: epel
+        file: epel
+        state: absent

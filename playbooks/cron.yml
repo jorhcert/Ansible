@@ -1,0 +1,14 @@
+---
+- hosts: centosa
+  become: yes
+  tasks:
+    - name: Perform a weekly yum update
+      cron:
+        name: "Weekly yum update"
+        minute: "*"
+        hour: "2"
+        month: "*"
+        weekday: "0"
+        user: root
+        state: present
+        job: "yum -y update"

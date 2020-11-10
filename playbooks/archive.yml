@@ -1,0 +1,25 @@
+---
+- hosts: centosa
+  become: yes
+  tasks:
+    - name: Archive multiple Files
+      archive:
+        path: 
+          - /home/ansible/archive/testDIR/testFile2
+          - /home/ansible/archive/testDIR/testFile4
+          - /home/ansible/archive/testDIR/testFile6
+        format: gz
+        dest: /home/ansible/unarchive/multi/multiFile.tgz
+    - name: Archive WildCard
+      archive:
+        path: /home/ansible/archive/testDIR/testFile*
+        exclude_path:
+          - /home/ansible/archive/testDIR/testFile2
+          - /home/ansible/archive/testDIR/testFile4
+        format: gz
+        dest: /home/ansible/unarchive/glob/globExclude.tgz
+    - name: Archive a DIR
+      archive:
+        path: /home/ansible/archive/testDIR
+        format: gz
+        dest: /home/ansible/unarchive/DIRexample/dir.tgz

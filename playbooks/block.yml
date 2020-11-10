@@ -1,0 +1,14 @@
+---
+- hosts: centos
+  tasks:
+    - name: Copy Remote Files
+      block:
+        - fetch:
+            src: /tmp/blockFile
+            dest: /tmp
+      rescue:
+        - debug:
+            msg: "This file doesn't exist on {{ ansible_hostname }}"
+      always:
+        - debug:
+            msg: "Playbook is finished"

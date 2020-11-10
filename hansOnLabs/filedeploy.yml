@@ -1,0 +1,30 @@
+---
+- name: Copy webapp
+  hosts: centosa
+  become: yes
+  
+  tasks:
+    - name: Install webapp
+      copy:
+        src: /home/ansible/ansible/files/index.html
+        dest: /var/www/html/index.html
+        owner: apache
+        group: apache
+        mode: 0644
+
+- name: Copy DB script
+  hosts: centosa
+  become: yes
+
+  tasks:
+    - name: Copy Deploy script
+#     script: /root/deploy.sh
+      copy:
+        src: /home/ansible/ansible/files/deploy.sh
+        dest: /opt/deploy.sh
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: Execute the script
+      command: sh /opt/deploy.sh

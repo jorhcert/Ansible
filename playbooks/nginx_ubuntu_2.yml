@@ -1,0 +1,11 @@
+---
+- hosts: ubuntua
+  become: yes
+  tasks:
+    - name: Remove nginx package
+      apt:
+        name: nginx
+        state: absent
+    - name: Autoremove
+      apt:
+        autoremove: yes

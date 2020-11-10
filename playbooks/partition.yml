@@ -1,0 +1,16 @@
+---
+- hosts: centosa
+  become: yes
+  tasks:
+    - name: Create Partitions
+      parted:
+        device: "{{ item }}"
+        number: 1
+        state: present
+        part_end: 900MiB
+        label: msdos
+        flags: [lvm]
+      loop:
+        - /dev/sdb
+        - /dev/sdc
+

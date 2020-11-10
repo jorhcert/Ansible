@@ -1,0 +1,28 @@
+---
+- hosts: centosa
+  become: yes
+  tasks:
+    - name: Install TAR package
+      yum:
+        name: tar
+        state: latest
+    - name: unPack multiFile.tgz
+      unarchive:
+        src: /home/ansible/unarchive/multi/multiFile.tgz
+        dest: /home/ansible/unarchive/multi
+        remote_src: yes
+    - name: unPack globExclude.tgz
+      unarchive:
+        src: /home/ansible/unarchive/glob/globExclude.tgz
+        dest: /home/ansible/unarchive/glob
+        remote_src: yes
+    - name: unPack dir.tgz
+      unarchive:
+        src: /home/ansible/unarchive/DIRexample/dir.tgz
+        dest: /home/ansible/unarchive/DIRexample
+        remote_src: yes
+    - name: unPack playbooks.tgz
+      unarchive:
+        src: /home/ansible/ansible/playbooks.tgz
+        dest: /home/ansible/unarchive
+        remote_src: no

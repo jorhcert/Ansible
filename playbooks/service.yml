@@ -1,0 +1,15 @@
+---
+- hosts: squid
+  become: yes
+  tasks:
+    - name: start and enable squid
+      service:
+        name: squid
+        state: started
+        enabled: yes
+    - name: start and enable firewalld
+      service:
+        name: firewalld
+        state: started
+        enabled: yes
+

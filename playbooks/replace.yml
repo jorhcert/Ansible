@@ -1,0 +1,13 @@
+---
+- hosts: centosa
+  tasks:
+    - name: Replace line in contentAdded
+      lineinfile:
+        path: /tmp/contentAdded
+        regexp: "^Added.*$"
+        line: "Replaced with lineinfile and regexp"
+    - name: Replace line in lineInFile
+      replace:
+        path: /tmp/lineInFile
+        regexp: ".*module$"
+        replace: "Line replaced by REPLACE module"

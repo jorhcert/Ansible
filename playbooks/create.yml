@@ -1,0 +1,16 @@
+---
+- hosts: centosa
+  tasks:
+    - name: touch a new file
+      file:
+        path: /tmp/touchedFile
+        state: touch
+    - name: Add line with copy
+      copy:
+        content: Added with the COPY module
+        dest: /tmp/contentAdded
+    - name: Add line with LINEINFILE
+      lineinfile:
+        path: /tmp/lineInFile
+        line: Added with LineInFile module
+        create: yes

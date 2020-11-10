@@ -1,0 +1,23 @@
+- hosts: ubuntu
+  become: yes
+  tasks:
+    - name: Install PostGreSQL
+      apt:
+        name: postgresql
+        state: latest
+    - name: Install PostgreSQL-Client
+      apt:
+        name: postgresql-client
+        state: latest
+    - name: Create DB users
+      user:
+        name: "{{ item }}"
+        groups: postgres
+      loop:
+        - corey
+        - aaron
+    - name: Start and Enable PostgreSQL service
+      service:
+        name: postgresql
+        state: started
+        enabled: yes

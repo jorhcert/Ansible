@@ -1,0 +1,14 @@
+---
+- hosts: centosa
+  tasks:
+    - name: create a file
+      file:
+        path: /tmp/testFile2
+        state: touch
+      register: var
+    - name: display debug msg
+      debug: msg="Regsiter output is {{ var }}"
+    - name: edit file
+      lineinfile:
+        path: /tmp/testFile2
+        line: "This file's UID is {{ var.uid }} and GID is {{ var.gid }}"

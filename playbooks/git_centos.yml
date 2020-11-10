@@ -1,0 +1,16 @@
+---
+
+- name: Use git to clone ansible repo
+  hosts: centosb
+  become: yes
+
+  tasks:
+    - name: install git
+      yum:
+        name: git
+        state: latest
+
+    - name: Use git to clone ansible repo
+      git:
+        repo: https://github.com/ansible/ansible.git
+        dest: /opt

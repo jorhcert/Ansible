@@ -1,0 +1,17 @@
+---
+- hosts: centosa
+  become: yes
+  tasks:
+    - name: update httpd.conf
+      replace:
+        path: /etc/httpd/conf/httpd.conf
+        regexp: '^ServerAdmin.*$'
+        replace: 'ServerAdmin jo@localhost'
+        backup: yes
+      notify: "Restart Web Server"
+  handlers:
+    - name: "Restart Apache"
+      service:
+        name: httpd
+        state: restarted
+      listen: "Restart Web Server"

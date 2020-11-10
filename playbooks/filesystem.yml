@@ -1,0 +1,15 @@
+---
+- hosts: centosa
+  become: yes
+  tasks:
+    - name: Create ext4 filesystem on logical vol
+      filesystem:
+        fstype: ext4
+        dev: /dev/mapper/vg_ansible-lv_ansible
+    - name: Mount Filesystem
+      mount:
+        path: /mnt/test_mount
+        src: /dev/mapper/vg_ansible-lv_ansible
+        fstype: ext4
+        state: mounted
+        backup: yes

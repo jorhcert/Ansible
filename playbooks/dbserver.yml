@@ -1,0 +1,17 @@
+---
+
+- name: DB server playbook
+  become: yes
+  hosts: ubuntu
+  
+  tasks:
+    - name: Add dba user
+      user:
+        name: dba
+    - name: Copy DBA files
+      copy:
+        src: /home/ansible/ansible/files/DBfile
+        dest: /home/dba
+        owner: dba
+        group: dba
+        mode: 0600

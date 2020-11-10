@@ -1,0 +1,36 @@
+---
+- hosts: centosb
+  become: yes
+  gather_facts: no
+  tasks:
+    - name: Create GROUPS
+      group:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - college
+        - northcampus
+    - name: Create Fred user
+      user:
+        name: fred
+        comment: Fred Smith
+        shell: /bin/bash
+        groups: college,northcampus
+        append: yes
+        state: present
+    - name: Create Mary user
+      user:
+        name: mary
+        comment: Mary West
+        uid: 1234
+        groups: college,northcampus
+        append: yes
+        state: present
+    - name: Create Alex user
+      user:
+        name: alex
+        comment: Alex Field
+        uid: 1235
+        groups: college,northcampus
+        append: yes
+        state: present

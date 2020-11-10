@@ -1,0 +1,15 @@
+---
+- hosts: squid
+  become: yes
+  tasks:
+    - name: Create Vol Group
+      lvg:
+        pvs: /dev/sdb1
+        vg: vg_squid
+        state: present
+    - name: Create Logical Volume
+      lvol:
+        vg: vg_squid
+        lv: lv_squid
+        size: 256m
+        state: present

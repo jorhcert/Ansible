@@ -1,0 +1,21 @@
+---
+- hosts: ubuntu
+  become: yes
+  tasks:
+    - name: Create groups
+      group:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - alex
+        - sam
+        - jay
+    - name: Create a list of users
+      user:
+        name: "{{ item }}"
+        state: present
+        groups: "{{ item }}"
+      loop:
+        - alex
+        - sam
+        - jay

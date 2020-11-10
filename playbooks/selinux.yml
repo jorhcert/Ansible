@@ -1,0 +1,25 @@
+---
+- hosts: centosb
+  gather_facts: no
+  become: yes
+  tasks:
+    - name: Install semanage package
+      yum:
+        name: policycoreutils-python-utils
+        state: latest
+    - name: Set mode to Enforcing
+      selinux:
+        policy: targeted
+        state: enforcing
+    - name: Enable HTTPD CGI boolean
+      seboolean:
+        name: httpd_enable_cgi
+        state: yes
+        persistent: yes
+    - name: set secontext
+      sefcontext:
+        target: '/webcontent(/.*)?'
+        setype: httpd_sys_content_t
+        state: present
+    - name: Run restorecon
+      command: restorecon -irv /webcontent

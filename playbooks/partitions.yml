@@ -1,0 +1,14 @@
+---
+- hosts: squid
+  become: yes
+  tasks:
+    - name: Create partitions
+      parted:
+        device: "{{ item }}"
+        number: 1
+        state: present
+        part_end: 500MiB
+        label: msdos
+        flags: [lvm]
+      loop:
+        - /dev/sdb1

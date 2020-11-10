@@ -1,0 +1,15 @@
+---
+- hosts: f33
+  become: yes
+  tasks:
+    - name: Install screen package
+      dnf:
+        name: screen
+        state: latest
+    - name: Copy .screenrc 
+      copy:
+        src: /home/ansible/ansible/files/screenrc
+        dest: /home/jo/.screenrc
+        owner: jo
+        group: jo
+        mode: 0640
