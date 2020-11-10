@@ -1,0 +1,33 @@
+---
+- name: Set up NGINX
+  hosts: nginx
+  become: yes
+  gather_facts: no
+
+  tasks:
+    - name: Install NGINX
+      yum:
+        name: nginx
+        state: latest
+    - name: Start NGINX
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+- name: Set up SQUID
+  hosts: squid
+  become: yes
+  gather_facts: no
+
+  tasks:
+    - name: Install SQUID
+      yum:
+        name: squid
+        state: latest
+    - name: Start SQUID
+      systemd:
+        name: squid
+        state: started
+        enabled: yes
+        no_block: yes

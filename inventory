@@ -4,6 +4,6 @@ localhost
 #ubuntua
 
 [centos]
-centosa
-#centosb
+squid
+nginx
 #f33
