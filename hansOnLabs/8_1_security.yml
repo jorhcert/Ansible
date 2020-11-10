@@ -1,0 +1,39 @@
+---
+- name: Configure firewall
+  hosts: centosa
+  become: yes
+  gather_facts: no
+
+  tasks:
+    - name: Add services to firewall
+      firewalld:
+        permanent: yes
+        state: enabled
+        immediate: yes
+        service: "{{ item }}"
+      loop:
+        - ssh
+        - squid
+        - https
+        - http
+
+    - name: Disable services on firewall
+      firewalld:
+        permanent: yes
+        state: disabled
+        immediate: yes
+        service: "{{ item }}"
+      loop:
+        - cockpit
+        - dhcpv6-client
+
+- name: SELinux
+  hosts: centosa
+  become: yes
+  gather_facts: no
+
+  tasks:
+    - name: Enable SELinux
+      selinux:
+        state: enforcing
+        policy: targeted

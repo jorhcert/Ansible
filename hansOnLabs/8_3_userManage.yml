@@ -1,0 +1,24 @@
+---
+- name: Backup user and groups
+  hosts: centosa
+  become: yes
+  gather_facts: no
+
+  tasks:
+    - group:
+        gid: 4321
+        name: backup
+        state: present
+    - group:
+        gid: 4322
+        name: new_backup
+        state: present
+    - user:
+       name: backup_old
+       state: absent
+    - user:
+        name: backup_new
+        uid: 5000
+        shell: /bin/false
+        password_lock: yes
+        groups: backup, new_backup
