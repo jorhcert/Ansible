@@ -2,21 +2,19 @@
 
 ## Correct Syntax ##
 
-[devops@ansible]$ cat playbook.yml
----
-- one
-- two
-...
+> [devops@ansible]$ cat playbook.yml
+> ---
+> - one
+> - two
+> ...
 
 (1) YAMLLINT
-[devops@ansible]$ yamllint playbook.yml
-[devops@ansible]$
-
+> [devops@ansible]$ yamllint playbook.yml
+> [devops@ansible]$
 
 (2) PYTHON
 [devops@ansible]$ python -c 'import yaml, sys; print yaml.load(sys.stdin)' < playbook.yml
 ['one', 'two']
-
 
 (3) --SYNTAX-CHECK (very strict)
 [devops@ansible]$ ansible-playbook playbook.yml --syntax-check
