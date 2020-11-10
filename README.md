@@ -10,20 +10,20 @@
 ...
 ```
 
-(1) YAMLLINT
+1. YAMLLINT
 
 ```
 [devops@ansible]$ yamllint playbook.yml
 [devops@ansible]$
 ```
 
-(2) PYTHON
+2. PYTHON
 ```
 [devops@ansible]$ python -c 'import yaml, sys; print yaml.load(sys.stdin)' < playbook.yml
 ['one', 'two']
 ```
 
-(3) --SYNTAX-CHECK (very strict)
+3. --SYNTAX-CHECK (very strict)
 ```
 [devops@ansible]$ ansible-playbook playbook.yml --syntax-check
 playbook: playbook.yml
@@ -40,14 +40,14 @@ playbook: playbook.yml
 ...
 ```
 
-(1) YAMLLINT
+1. YAMLLINT
 ```
 [devops@ansible]$ yamllint playbook.yml
 playbook.yml
   4:1       error    syntax error: could not find expected ':' (syntax)
 ```
 
-(2) PYTHON
+2. PYTHON
 ```
 [devops@bastion 1 ~/ansible_implementation]$ python -c 'import yaml, sys; print yaml.load(sys.stdin)' < playbook.yml
 Traceback (most recent call last):
@@ -56,7 +56,7 @@ Traceback (most recent call last):
 ...
 ```
 
-(3) --SYNTAX-CHECK (very strict)
+3. --SYNTAX-CHECK (very strict)
 ```
 [devops@ansible] $ ansible-playbook playbook.yml --syntax-check
 ERROR! playbook entries must be either a valid play or an include statement
