@@ -1,0 +1,16 @@
+---
+- name: Scheudled Tasks
+  hosts: squid
+  become: yes
+  gather_facts: no
+
+  tasks:
+  - cron:
+      name: "yum update - weekly"
+      special_time: weekly
+      job: "/usr/bin/yum update -y"
+
+  - cron:
+      name: "Is a reboot needed"
+      special_time: reboot
+      job: "/usr/bin/needs-restarting -r"

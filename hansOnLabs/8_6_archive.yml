@@ -1,0 +1,32 @@
+---
+- name: Archive
+  hosts: nginx
+  become: yes
+  gather_facts: no
+
+  tasks:
+  - name: Install TAR
+    yum:
+      name: tar
+      state: latest
+
+  - name: Extract archive from LOCAL source
+    unarchive:
+      src: /home/ansible/ansible/files/file.tar.gz
+      dest: /opt
+
+  - name: Extract archive from REMOTE source
+    unarchive:
+      src: /tmp/remoteArchive.tar.gz
+      dest: /opt
+      remote_src: yes
+
+  - name: Create Archive of dnf.log
+    archive:
+      path: /var/log/dnf.log
+      dest: /tmp/dnfLog.tar.gz
+
+  - name: Fetch remote archive and copy to localhost
+    fetch:
+      src: /tmp/dnfLog.tar.gz
+      dest: /tmp
