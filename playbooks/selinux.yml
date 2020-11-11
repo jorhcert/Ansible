@@ -1,5 +1,5 @@
 ---
-- hosts: centosb
+- hosts: squid
   gather_facts: no
   become: yes
   tasks:
@@ -18,8 +18,8 @@
         persistent: yes
     - name: set secontext
       sefcontext:
-        target: '/webcontent(/.*)?'
+        target: '/webhome(/.*)?'
         setype: httpd_sys_content_t
         state: present
     - name: Run restorecon
-      command: restorecon -irv /webcontent
+      command: restorecon -irv /webhome

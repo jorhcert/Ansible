@@ -1,0 +1,43 @@
+---
+- hosts: squid
+  become: yes
+  vars:
+    content_dir: /webhome
+    http_port: 8080
+    admin: webuser
+  tasks:
+    - name: Push httpd.conf template
+      template:
+        src: /home/ansible/ansible/templates/httpd.conf.j2
+        dest: /etc/httpd/conf/httpd.conf
+        backup: yes
+      notify: "restart apache"
+    - name: Push index.html template
+      template:
+        src: /home/ansible/ansible/templates/index.html.j2
+        dest: /webhome/index.html
+    - name: Open port 8080 in Firewall
+      firewalld:
+       zone: public
+       port: 8080/tcp
+       permanent: yes
+       immediate: yes
+       state: enabled
+    - name: SELinux - Enable HTTPD CGI boolean
+      seboolean:
+        name: httpd_enable_cgi
+        state: yes
+        persistent: yes
+    - name: SELinux - set secontext
+      sefcontext:
+        target: '/webhome(/.*)?'
+        setype: httpd_sys_content_t
+        state: present
+    - name: SELinux - Run restorecon
+      command: restorecon -irv /webhome
+  handlers:
+    - name: Restart httpd service
+      service:
+        name: httpd
+        state: restarted
+      listen: "restart apache"

@@ -1,0 +1,12 @@
+---
+- hosts: squid
+  become: yes
+  vars_files:
+    /home/ansible/ansible/vars/users.yml
+  tasks:
+    - name: Create Users
+      user:
+        name: "{{ item }}"
+        state: absent
+        remove: yes
+      loop: "{{ [learners,college]|flatten(1) }}"

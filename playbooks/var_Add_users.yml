@@ -1,0 +1,13 @@
+---
+- hosts: squid
+  become: yes
+  vars_files:
+    /home/ansible/ansible/vars/users.yml
+  tasks:
+    - name: Create Users
+      user:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - "{{ learners }}"
+        - "{{ college }}"

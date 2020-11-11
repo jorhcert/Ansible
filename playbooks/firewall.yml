@@ -13,7 +13,7 @@
       - http
       - https
       - squid
-  - name: Add Firewall fule by port number
+  - name: Add Firewall rule by port number
     firewalld:
       port: 8080-8084/tcp
       permanent: yes
