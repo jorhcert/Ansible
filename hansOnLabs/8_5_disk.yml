@@ -1,0 +1,33 @@
+---
+- name: Disks
+  hosts: squid
+  become: yes
+  gather_facts: no
+
+  tasks:
+    - name: Create Vol Group
+      lvg:
+        vg: vg_new
+        pvs: /dev/sdb1
+
+    - name: Create Logical Vol
+      lvol:
+        lv: lv_centosa
+        vg: vg_new
+        size: 500m
+        pvs: /dev/sdb1
+        state: present
+
+    - name: Format disk
+      filesystem:
+        device: /dev/mapper/vg_new-lv_centosa
+        fstype: xfs
+
+    - name: Mount volume
+      mount:
+        fstype: xfs
+        src: /dev/mapper/vg_new-lv_centosa
+#        or
+#        src: /dev/vg_new/lv_centosa
+        state: mounted
+        path: /mnt/newVol
