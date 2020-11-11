@@ -18,11 +18,11 @@
         dest: /webhome/index.html
     - name: Open port 8080 in Firewall
       firewalld:
-       zone: public
-       port: 8080/tcp
-       permanent: yes
-       immediate: yes
-       state: enabled
+        zone: public
+        port: 8080/tcp
+        permanent: yes
+        immediate: yes
+        state: enabled
     - name: SELinux - Enable HTTPD CGI boolean
       seboolean:
         name: httpd_enable_cgi
