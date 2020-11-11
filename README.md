@@ -1,6 +1,21 @@
 # Some general notes on Ansible
 
 
+## RHEL System Roles
+### Install
+```
+yum -y install rhel-system-roles
+```
+### View sample roles
+```
+ls -l /usr/share/ansible/roles/
+```
+
+### View sample playbooks
+```
+ls -l /usr/share/doc/rhel-system-roles-1.0/
+```
+
 ## YAML Syntax checking
 
 ### Correct Syntax
