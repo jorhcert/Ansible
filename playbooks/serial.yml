@@ -1,0 +1,11 @@
+---
+- hosts: all
+  serial:
+    - 1
+    - 2
+    - 50%
+  tasks:
+  - name: Create new file
+    file:
+      path: /tmp/SerialFile
+      state: touch
