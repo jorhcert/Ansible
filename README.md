@@ -1,6 +1,9 @@
-# YAML Syntax checking
+# Some general notes on Ansible
 
-## Correct Syntax ##
+
+## YAML Syntax checking
+
+### Correct Syntax
 
 ```
 [devops@ansible]$ cat playbook.yml
@@ -30,7 +33,7 @@ playbook: playbook.yml
 ```
 
 
-## Incorrect Syntax ##
+### Incorrect Syntax
 
 ```
 [devops@ansible]$ cat playbook.yml
