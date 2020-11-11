@@ -1,0 +1,8 @@
+---
+- hosts: nginx
+  become: yes
+  gather_facts: yes
+  roles:
+    - role: apache
+      vars:
+        apache_http_port: 38085

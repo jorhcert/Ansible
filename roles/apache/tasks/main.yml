@@ -1,0 +1,50 @@
+---
+# tasks file for apache
+- name: Create WebContent dir
+  file:
+    path: "{{ apache_content_dir }}"
+    state: directory
+    mode: '0755'
+
+- name: Set SEContext on dir {{ apache_content_dir }}
+  sefcontext:
+    target: "{{ apache_content_dir }}(/.*)?"
+    setype: httpd_sys_content_t
+    state: present
+
+- name: Run RestoreCon on {{ apache_content_dir }}
+  command: restorecon -irv "{{ apache_content_dir }}"
+
+- name: Run SEMange on port {{ apache_http_port }}
+  command: semanage port -a -t http_port_t -p tcp "{{ apache_http_port }}"
+
+- name: Open port {{ apache_http_port }} on Firewall
+  firewalld:
+    port: "{{ apache_http_port }}/tcp"
+    permanent: yes
+    immediate: yes
+    state: enabled
+
+- name: Installing Apache package
+  yum:
+    name: httpd
+    state: latest
+
+- name: Deploying httpd.conf template
+  template:
+    src: httpd.conf.j2
+    dest: /etc/httpd/conf/httpd.conf
+    backup: yes
+  notify: "restart apache"
+
+- name: Deploying index.html template
+  template:
+    src: index.html.j2
+    dest: "{{ apache_content_dir }}/index.html"
+    backup: yes
+
+- name: Re/Start and Enable HTTPD service
+  service:
+    name: httpd
+    enabled: yes
+    state: restarted
