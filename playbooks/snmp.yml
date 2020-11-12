@@ -1,0 +1,39 @@
+---     
+- hosts: squid
+  become: yes
+  gather_facts: false
+  tasks:      
+  - name: Install net-snmp package
+    yum:
+      name: net-snmp
+      state: latest
+      disable_gpg_check: yes
+        
+  - name: Start net-snmp service
+    service:
+      name: snmpd
+      state: started
+        
+  - name: Enable net-snmp service
+    service:
+      name: snmpd
+      enabled: yes
+ 
+  - name: Remove file
+    file:
+      state: absent
+      path: /etc/snmp/snmpd.conf
+   
+  - name: Create snmpd.conf file
+    file:
+      path: /etc/snmp/snmpd.conf
+      state: touch
+      mode: 0600
+    
+  - name: Update snmpd.conf
+    lineinfile: 
+      dest: /etc/snmp/snmpd.conf
+      line: '{{ item }}'
+    with_items:
+      - 'rocommunity c0mmstr1ng'
+      - 'trap2sink   10.10.10.123 c0mmstr1ng '
