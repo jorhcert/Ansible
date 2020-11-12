@@ -14,8 +14,8 @@
         name: new_backup
         state: present
     - user:
-       name: backup_old
-       state: absent
+        name: backup_old
+        state: absent
     - user:
         name: backup_new
         uid: 5000

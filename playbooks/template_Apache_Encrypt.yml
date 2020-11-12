@@ -9,8 +9,8 @@
           3164666134316431666164336532383062323236613766630a366665613638313637636433343837
           63353934613265663339356239663264383636303962313639336130336630666335393862396539
           6635643439373436320a376138313531643162373137613438663762303361303562646439646432
-          3939    
-# Above generate with: ansible-vault encrypt_string --ask-vault-pass '8080' --name 'http_port'
+          3939
+  # Above generate with: ansible-vault encrypt_string --ask-vault-pass '8080' --name 'http_port'
     admin: webuser
   tasks:
     - name: Push httpd.conf template

@@ -5,7 +5,7 @@
     - 2
     - 50%
   tasks:
-  - name: Create new file
-    file:
-      path: /tmp/SerialFile
-      state: touch
+    - name: Create new file
+      file:
+        path: /tmp/SerialFile
+        state: touch

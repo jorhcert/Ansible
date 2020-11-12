@@ -5,7 +5,7 @@
   become: yes
 
   tasks:
-    - name: Create psqlgroup Group 
+    - name: Create psqlgroup Group
       group:
         name: psqlgroup
         state: present

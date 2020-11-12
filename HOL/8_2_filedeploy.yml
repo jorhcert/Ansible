@@ -2,7 +2,7 @@
 - name: Copy webapp
   hosts: centosa
   become: yes
-  
+
   tasks:
     - name: Install webapp
       copy:
