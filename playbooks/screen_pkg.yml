@@ -8,7 +8,7 @@
         state: latest
     - name: Copy .screenrc 
       copy:
-        src: /home/ansible/ansible/files/screenrc
+        src: /home/ansible/Ansible/files/screenrc
         dest: /home/jo/.screenrc
         owner: jo
         group: jo

@@ -38,7 +38,7 @@
 
     - name: Copy file
       copy:
-        src: /home/ansible/ansible/files/dbafile
+        src: /home/ansible/Ansible/files/dbafile
         dest: /home/dbauser1/dbafile
         owner: dbauser1
         group: dbauser1
@@ -75,7 +75,7 @@
   tasks:
     - name: Populate file with IP addr
       lineinfile:
-        path: /home/ansible/ansible/files/addr
+        path: /home/ansible/Ansible/files/addr
         line: "{{ ansible_facts['all_ipv4_addresses'] }}"
         create: yes
       when: ansible_facts['os_family'] == 'RedHat'

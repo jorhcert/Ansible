@@ -4,6 +4,6 @@
   tasks:
     - name: Copy File
       copy:
-        src: /home/ansible/ansible/files/index.html
+        src: /home/ansible/Ansible/files/index.html
         dest: /var/www/html/index.html
       when: ansible_hostname == "centosa"

@@ -23,6 +23,6 @@
         remote_src: yes
     - name: unPack playbooks.tgz
       unarchive:
-        src: /home/ansible/ansible/playbooks.tgz
+        src: /home/ansible/Ansible/playbooks.tgz
         dest: /home/ansible/unarchive
         remote_src: no

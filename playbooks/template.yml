@@ -4,5 +4,5 @@
   tasks:
     - name: Push out info template
       template:
-        src: /home/ansible/ansible/templates/info.j2
+        src: /home/ansible/Ansible/templates/info.j2
         dest: /tmp/info.txt

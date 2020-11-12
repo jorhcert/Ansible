@@ -1,10 +1,11 @@
 ---
+# Run with --vault-password-file <path to password file>
 - hosts: squid
   become: yes
   vars_files:
-    /home/ansible/ansible/vars/users.yml
+    /home/ansible/Ansible/vars/users_Encrypted.yml
   tasks:
-    - name: Create Users
+    - name: Remove Users
       user:
         name: "{{ item }}"
         state: absent

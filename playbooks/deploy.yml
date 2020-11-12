@@ -15,7 +15,7 @@
         - myles
     - name: Create index.html
       template:
-        src: /home/ansible/ansible/templates/index.j2
+        src: /home/ansible/Ansible/templates/index.j2
         dest: /var/www/html/index.html
         owner: apache
         group: apache

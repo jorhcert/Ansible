@@ -1,8 +1,9 @@
 ---
+# Run with --ask-vault-pass
 - hosts: squid
   become: yes
   vars_files:
-    /home/ansible/Ansible/vars/users.yml
+    /home/ansible/Ansible/vars/users_Encrypted.yml
   tasks:
     - name: Create Users
       user:

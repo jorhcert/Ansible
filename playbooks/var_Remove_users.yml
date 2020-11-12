@@ -4,10 +4,9 @@
   vars_files:
     /home/ansible/Ansible/vars/users.yml
   tasks:
-    - name: Create Users
+    - name: Remove Users
       user:
         name: "{{ item }}"
-        state: present
-      with_items:
-        - "{{ learners }}"
-        - "{{ college }}"
+        state: absent
+        remove: yes
+      loop: "{{ [learners,college]|flatten(1) }}"

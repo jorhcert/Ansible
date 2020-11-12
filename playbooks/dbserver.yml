@@ -10,7 +10,7 @@
         name: dba
     - name: Copy DBA files
       copy:
-        src: /home/ansible/ansible/files/DBfile
+        src: /home/ansible/Ansible/files/DBfile
         dest: /home/dba
         owner: dba
         group: dba
