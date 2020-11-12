@@ -1,0 +1,27 @@
+---
+# Run with: ansible-playbook --ask-vault-pass 12-DB_Pass-Encrypted.yml
+- name: Setup DB Tool
+  hosts: squid
+  become: yes
+
+  tasks:
+    - name: Create psqlgroup Group 
+      group:
+        name: psqlgroup
+        state: present
+    - name: Create dbadmin user
+      user:
+        name: dbadmin
+        comment: DataBase Admin
+        shell: /bin/bash
+        groups: psqlgroup
+        append: yes
+        state: present
+    - name: Create PGPass file
+      lineinfile:
+        line: 'SecretHere'
+        owner: dbadmin
+        group: dbadmin
+        mode: 0600
+        path: /home/dbadmin/.pgpass
+        create: yes
