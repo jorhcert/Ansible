@@ -1,0 +1,31 @@
+---
+- hosts: squid
+  vars:
+    user: admin01
+    # The below password = p@ssword123
+    user_password: $6$.umuH7R7YtPkbsqJ$boHCDW3JCMhi5UyY3ClxSHoRsaEpiPIeu1rkte4jQ0WdyDCYsYY0R.0c85LNmiI9m7g92aTVtvqpH/zNatem31
+    # password generated with:
+    # python3 -c "from passlib.hash import sha512_crypt; import getpass; print(sha512_crypt.using(rounds=5000).hash(getpass.getpass()))"
+  gather_facts: no
+  become: true
+  tasks:
+  - name: Create admin01 service account
+    user:
+      name: "{{ user }}"
+      shell: /bin/bash
+      create_home: yes
+      expires: -1
+      comment: Admin 01 account
+      groups: wheel
+      password: "{{ user_password }}"
+  - name: Add admin01 account to sudoers
+    copy:
+      dest: "/etc/sudoers.d/{{ user }}"
+      content: "{{ user }}  ALL=(ALL)  NOPASSWD: ALL"
+  - name: Disable password expiry
+    command: passwd -x -1 {{ user }}
+  handlers:
+  - name: restart ssh
+    service:
+      name=sshd
+      state=restarted
