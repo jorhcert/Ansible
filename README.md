@@ -13,7 +13,7 @@ ls -l /usr/share/ansible/roles/
 
 ### View sample playbooks
 ```
-ls -l /usr/share/doc/rhel-system-roles-1.0/
+ls -l /usr/share/doc/rhel-system-roles
 ```
 
 ## YAML Syntax checking
