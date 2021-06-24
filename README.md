@@ -1,18 +1,17 @@
 # Some general notes on Ansible
 
-
 ## RHEL System Roles
 ### Install
-```
+```bash
 yum -y install rhel-system-roles
 ```
 ### View sample roles
-```
+```bash
 ls -l /usr/share/ansible/roles/
 ```
 
 ### View sample playbooks
-```
+```bash
 ls -l /usr/share/doc/rhel-system-roles
 ```
 
@@ -20,7 +19,7 @@ ls -l /usr/share/doc/rhel-system-roles
 
 ### Correct Syntax
 
-```
+```bash
 [devops@ansible]$ cat playbook.yml
 ---
 - one
@@ -30,19 +29,19 @@ ls -l /usr/share/doc/rhel-system-roles
 
 1. YAMLLINT
 
-```
+```bash
 [devops@ansible]$ yamllint playbook.yml
 [devops@ansible]$
 ```
 
 2. PYTHON
-```
+```bash
 [devops@ansible]$ python -c 'import yaml, sys; print yaml.load(sys.stdin)' < playbook.yml
 ['one', 'two']
 ```
 
 3. --SYNTAX-CHECK (very strict)
-```
+```bash
 [devops@ansible]$ ansible-playbook playbook.yml --syntax-check
 playbook: playbook.yml
 ```
@@ -50,7 +49,7 @@ playbook: playbook.yml
 
 ### Incorrect Syntax
 
-```
+```bash
 [devops@ansible]$ cat playbook.yml
 ---
 - one
@@ -59,14 +58,14 @@ playbook: playbook.yml
 ```
 
 1. YAMLLINT
-```
+```bash
 [devops@ansible]$ yamllint playbook.yml
 playbook.yml
   4:1       error    syntax error: could not find expected ':' (syntax)
 ```
 
 2. PYTHON
-```
+```bash
 [devops@bastion 1 ~/ansible_implementation]$ python -c 'import yaml, sys; print yaml.load(sys.stdin)' < playbook.yml
 Traceback (most recent call last):
   File "<string>", line 1, in <module>
@@ -75,7 +74,7 @@ Traceback (most recent call last):
 ```
 
 3. --SYNTAX-CHECK (very strict)
-```
+```bash
 [devops@ansible] $ ansible-playbook playbook.yml --syntax-check
 ERROR! playbook entries must be either a valid play or an include statement
 ...
